@@ -15,7 +15,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <BrowserRouter>
       <Provider store={store}>
         <NextUIProvider>
-          <App />
+        <main className="dark text-foreground bg-background">
+        <App />
+      </main>
         </NextUIProvider>
       </Provider>
     </BrowserRouter>
