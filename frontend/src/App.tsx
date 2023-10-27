@@ -1,11 +1,11 @@
 import './App.css'
-import { Button } from '@nextui-org/react'
 
+import Login from './components/login'
 
 function App() {
   return (
-    <div>
-      <Button color='primary'>Hello</Button>
+    <div className='flex justify-center items-center w-full h-full'>
+      <Login/>
     </div>
   )
 }

@@ -9,9 +9,12 @@ export default {
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      maxWidth:{
+        '3/5':'60%'
+      }
+    },
   },
-  plugins: [],
   darkMode: "class",
   plugins: [nextui()],
 }
