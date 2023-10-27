@@ -27,7 +27,6 @@ export default function Login() {
 
   return (
     <>
-      <div className="flex flex-wrap gap-3" id="login">
         <Button
           variant="flat"
           color="warning"
@@ -36,8 +35,11 @@ export default function Login() {
         >
           Login
         </Button>
-      </div>
-      <Modal backdrop="blur" isOpen={isOpen} onClose={onClose} className="bg-slate-800		items-left justify-start">
+
+     
+
+
+      <Modal backdrop="blur" isOpen={isOpen} onClose={onClose} className="bg-slate-800	items-left justify-start">
         <ModalContent>
           <>
             <ModalHeader className="flex flex-col gap-1 items-center text-white ">Hi, Welcome Back! 😺</ModalHeader>
