@@ -16,6 +16,10 @@ import { Eye, EyeOff } from "lucide-react";
 export default function Login() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [check, setCheck] = useState<boolean>(false);
+
   const toggleVisibility = () => setIsVisible(!isVisible);
 
   const [backdrop , setBackdrop] = useState<string>("")
@@ -44,10 +48,12 @@ export default function Login() {
           <>
             <ModalHeader className="flex flex-col gap-1 items-center text-white ">Hi, Welcome Back! 😺</ModalHeader>
             <ModalBody>
-              <Input type="email" label="Email" variant="bordered" className="text-white" />
+              <Input type="email" label="Email" value = {email} onChange={(e)=>setEmail(e.currentTarget.checked)} variant="bordered" className="text-white" />
               <Input
                 label="Password"
                 variant="bordered"
+                value={password}
+                onChange={(e)=>setPassword(e.target.value)}
                 endContent={
                   <button className="focus:outline-none" type="button" onClick={toggleVisibility}>
                     {isVisible ? (
@@ -61,7 +67,7 @@ export default function Login() {
                 className="max-w-xs mt-4 min-w-[400px] text-white"
               />
               <Link href="#" size="md">Forgot Password</Link>
-              <Checkbox defaultSelected size="sm" className="text-white mb"><text className="text-white">I agree to the Terms and Conditions.</text></Checkbox>
+              <Checkbox defaultSelected size="sm" className="text-white mb" value={check} onChange={(e)=>setCheck(e.target.value)}><text className="text-white">I agree to the Terms and Conditions.</text></Checkbox>
               <Button color="primary" variant="ghost" className="items-center min-w-[400px] mt-3 ">
                 Login
               </Button>
