@@ -1,23 +1,24 @@
 from django.shortcuts import render
 
 # Create your views here.
-from rest_framework import viewsets , permissions , authentication , status , views , generics
+from rest_framework import viewsets , permissions , authentication , status , views , generics , parsers
 
 from django.contrib.auth import authenticate, login , logout
 
 from rest_framework.response import Response
 
-from .serializer import UserSerializer , LoginSerializer
+from .serializer import UserSerializer , LoginSerializer , UserSerializerAfterLogin
 from .models import User
-
+from backend.authentication import CsrfExemptSessionAuthentication
 
 
 
 class UserViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.AllowAny]
-    authentication_classes = [authentication.SessionAuthentication]
+    authentication_classes = [CsrfExemptSessionAuthentication]
     serializer_class = UserSerializer
     queryset = User.objects.all()
+    parser_classes  = [parsers.MultiPartParser , parsers.JSONParser]
 
 
 class UserLogin(generics.GenericAPIView): 
@@ -29,7 +30,8 @@ class UserLogin(generics.GenericAPIView):
             if(seraializer.is_valid()):
                 user = User.objects.get(username=seraializer.validated_data['username'])
                 login(request=request , user=user)
-                return Response("Logged In")
+                
+                return Response("hello")
             return Response(seraializer.errors)
         except User.DoesNotExist: # If User Record does not exist,
             return Response("Invalid Request" , status=status.HTTP_400_BAD_REQUEST)
@@ -37,8 +39,8 @@ class UserLogin(generics.GenericAPIView):
 
 class UserLogout(generics.GenericAPIView):
     permission_classes = [permissions.IsAuthenticated]
-    authentication_classes = [authentication.SessionAuthentication,]
-    def post(self, request, format=None):
+    authentication_classes = [CsrfExemptSessionAuthentication,]
+    def get(self, request, format=None):
         try:
            logout(request=request)
            return Response("logged out" , status=status.HTTP_204_NO_CONTENT)

@@ -8,6 +8,11 @@ class ChapterSerializer(serializers.ModelSerializer):
         model =Chapter
         fields = '__all__'
 
+class ChapterSerializerForManga(serializers.Serializer):
+    cover = serializers.ImageField()
+    chapter_number = serializers.IntegerField()
+    created_at = serializers.DateTimeField()
+
 
 class ImageSerializer(serializers.ModelSerializer):
 
