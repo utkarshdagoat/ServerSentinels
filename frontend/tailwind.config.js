@@ -14,6 +14,11 @@ export default {
       backgroundImage:{
         'blob' : "url(/home/camper/ServerSentinels/frontend/src/images/svgs/blob2.jpeg)",
       },
+      maxWidth:{
+        '3/5':'60%',
+        '2/5':'40%',
+        '1/6':'15%'
+      }
     },
   },
   darkMode: "class",

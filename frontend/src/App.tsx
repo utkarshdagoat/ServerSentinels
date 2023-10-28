@@ -8,14 +8,10 @@ import {  Route, Routes } from 'react-router-dom';
 function App() {
   return (
 
-     
-
-    <div className="bg-gradient-to-r from-[#99003c] via-[#2d2d66] to-[#2c7fe5]">
     <Routes>
       <Route path="/" Component={Landing}/>
       <Route path="/login" Component={Login}/>
     </Routes>
-    </div>
   );
 }
 
