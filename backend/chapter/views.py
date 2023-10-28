@@ -3,6 +3,8 @@ from django.shortcuts import render
 # Create your views here.
 from rest_framework import viewsets , permissions , authentication ,generics , status
 
+from .permissions import IsUploaderOfManga
+
 from rest_framework.response import Response
 
 from .models import Chapter , MangaImage
@@ -13,13 +15,13 @@ from .serializer import ChapterSerializer , ImageSerializer
 class ChaperViewSet(viewsets.ModelViewSet):
     serializer_class = ChapterSerializer
     queryset = Chapter.objects.all()
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated , IsUploaderOfManga]
     authentication_classes = [CsrfExemptSessionAuthentication]
 
 
 class ImageCreateandRetriveAPIView(viewsets.ModelViewSet):
     queryset = MangaImage.objects.all()
     serializer_class  = ImageSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated , IsUploaderOfManga]
     authentication_classes = [CsrfExemptSessionAuthentication]
 

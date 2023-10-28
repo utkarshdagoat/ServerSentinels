@@ -3,19 +3,25 @@ import { userApi } from "../services/user";
 import { user } from "@nextui-org/react";
 
 
-interface userState {
+export  interface userAuthState {
     username:string | null,
     password:string | null,
     profile_picture:string | null,
-    loggendIn:boolean
+}
+
+
+export interface userState {
+    user:userAuthState
+    LoggedIn:boolean
 }
 
 const initialState : userState =  {
-    username:null,
-    password:null,
-    loggendIn:false,
-    profile_picture:null
-
+    user : {
+        username:null,
+        password:null,
+        profile_picture:null
+    },
+    LoggedIn:false
 }
 
 const userSlice = createSlice({
@@ -25,16 +31,20 @@ const userSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addMatcher(userApi.endpoints.signUp.matchFulfilled, (state , {payload})=>{
-            state.username = payload.username
-            state.profile_picture = payload.profile_picture
-            state.password = payload.password
-            state.loggendIn = true
+            state.user.username = payload.username
+            state.user.profile_picture = payload.profile_picture
+            state.user.password = payload.password
+            state.LoggedIn = true
         }),
         builder.addMatcher(userApi.endpoints.logout.matchFulfilled , (state)=>{
             state = initialState
         })
-        builder.addMatcher(userApi.endpoints.login.matchFulfilled , (state , payload)=>{
+        builder.addMatcher(userApi.endpoints.login.matchFulfilled , (state , {payload})=>{
             state = initialState
+        }),
+        builder.addMatcher(userApi.endpoints.check_login.matchFulfilled , (state,{payload})=>{
+            state.user = payload.user
+            state.LoggedIn = payload.LoggedIn
         })
     },
 })

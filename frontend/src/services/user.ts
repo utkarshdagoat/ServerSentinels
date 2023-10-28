@@ -1,10 +1,11 @@
 import {  createApi , fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
+import { userState } from "../features/userSlice";
 export  interface userAuthState {
     username:string,
     password:string,
     profile_picture:string
 }
+
 
 export  interface userAuthLoginState {
     username:string,
@@ -20,7 +21,7 @@ export const userApi = createApi({
     endpoints : (builder)=>({
         login:builder.query<void,userAuthLoginState>({
             query:(payload)=>({
-                url:"/auth/login",
+                url:"auth/login",
                 method:"POST",
                 body:payload,
                 headers:{
@@ -30,14 +31,17 @@ export const userApi = createApi({
         }),
         signUp: builder.query<userAuthState, FormData>({
             query:(data)=>({
-                url:'/auth/users/',
+                url:'auth/users/',
                 method:"POST",
                 body:data,
                 headers:undefined
             })
         }),
         logout:builder.query<{},void>({
-            query:()=>'/auth/logout/'
+            query:()=>'auth/logout/'
+        }),
+        check_login:builder.query<userState , void>({
+            query:()=>'auth/check_login/'
         })
     }),
 })

@@ -1,41 +1,13 @@
 import { useState, useEffect, useRef } from "react";
 import {Card, CardBody, CardFooter, Image, Spacer, Button} from "@nextui-org/react";
-import {Flame, Eye, Star} from "lucide-react"
+import {Flame, PlusIcon} from "lucide-react"
 import IMAGES from "../images/images";
-export default function TopRated() {
+import { useGetMangasQuery } from "../services/manga";
+import { manga } from "../services/manga";
+import ChapterCreate from "./chapter-upload";
+
+export default function MangaCorousel({data , canCreate , Title , emoji}:{data:manga[] , canCreate:boolean , Title:string , emoji:string}) {
 type direction = "prev" | "next"
-  const list = [
-    {
-      title: "One punch Man",
-      img: IMAGES.opm,
-      latest: "Chapter 220",
-    },
-    {
-      title: "Demon Slayer",
-      img: IMAGES.demon,
-      latest: "Chapter 134",
-    },
-    {
-      title: "Naruto",
-      img: IMAGES.naruto,
-      latest: "Chapter 102",
-    },
-    {
-      title: "Soul Eater",
-      img: IMAGES.soul,
-      latest: "Chapter 48",
-    },
-    {
-      title: "One Piece",
-      img: IMAGES.onepiece,
-      latest: "Chapter 1023",
-    },
-    {
-      title: "Rurouni Kenshin",
-      img: IMAGES.rurouni,
-      latest: "Chapter 86",
-    },
-  ];
 
   
     const maxScrollWidth = useRef(0);
@@ -87,10 +59,10 @@ type direction = "prev" | "next"
   
 
   return (
-    <div className="carousel mt-3 mb-3 mx-auto flex-col pl-3">
+    <div className="carousel mt-6 mb-1 mx-auto flex-col pl-3">
         <div className="flex">
-        <h2 className="text-3xl leading-8 font-semibold mb-1 text-white inline-block float-left flex items-center">
-            <>Top Rated</><Star />
+        <h2 className="text-3xl leading-8 font-semibold mb-6 mt-4 text-white inline-block float-left flex items-center">
+            <>{Title}</>{emoji}
         </h2>
         </div>
         <div className="relative overflow-hidden">
@@ -142,23 +114,28 @@ type direction = "prev" | "next"
                 ref={carousel}
                 className="carousel-container relative flex gap-1 overflow-hidden scroll-smooth snap-x snap-mandatory touch-pan-x z-0"
             >
-            <div className="flex overflow-x-auto scroll-smooth scrollbar-hide pb-10 pt-6" ref={scrollablDivRef}>
-                <div className="flex space-x-5   " >
-                {list.map((item, index) => (
-                    <Card isFooterBlurred className="w-[320px] h-[270px] col-span-12 sm:col-span-5">
+            <div className="flex overflow-x scroll-smooth scrollbar-hide pb-10" ref={scrollablDivRef}>
+                <div className="flex space-x-20   " >
+                {data?.map((item, index) => (
+                    <Card isFooterBlurred className={`col-span-12 sm:col-span-5 bf`} isPressable key={index}>
                     <Image
                       removeWrapper
                       alt="Card example background"
-                      className="z-0 w-full h-full "
-                      src={item.img}
+                      className="z-0  object-fill min-h-[400px] "
+                      src={item.cover}
                     />
                     <CardFooter className="absolute bg-white/30 bottom-0 border-t-1 border-zinc-100/50 z-10 justify-between">
                       <div>
-                        <p className="text-black text-base font-semibold">{item.latest}</p>
-                      </div>
-                      <Button className="text-tiny" color="primary" radius="full" size="sm">
+                        <p className="text-black text-base font-semibold">Chapter {item.latest_chapter}</p>
+                      </div>{!canCreate &&
+                      <Button className="" color="secondary" radius="full" size="sm">
                         Read Now
+                      </Button>}{
+                        canCreate &&
+                        <Button className="" color="secondary" radius="full" size="sm" >
+                        <ChapterCreate />
                       </Button>
+                      }
                     </CardFooter>
                   </Card>
                 ))}

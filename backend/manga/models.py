@@ -3,7 +3,6 @@ from django.db import models
 from myauth.models import User
 
 import uuid
-
 import os
 
 # Create your models here.
@@ -19,7 +18,10 @@ def get_filename(instance , filename):
 class Manga(models.Model):
     name = models.CharField(max_length=100)
     uploader = models.ForeignKey(to=User , on_delete=models.CASCADE)
-    description = models.CharField(max_length=250)
+    description = models.CharField(max_length=25000)
     cover= models.ImageField(upload_to=get_filename)
     created_at = models.DateTimeField(auto_now_add=True)
     creator = models.CharField(max_length=200)
+    liked_by = models.ManyToManyField(to=User , null=True , related_name="like_manga")
+
+

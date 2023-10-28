@@ -38,12 +38,9 @@ export default function Login() {
       body: JSON.stringify({ "username": username, password }),
       headers: {
         "Content-Type": "application/json"
-      }
+      },
+      credentials:'include'
     })
-    const loginRes = await res.json()
-    if (loginRes.ok) {
-      navigate('/')
-    }
   }
 
 
