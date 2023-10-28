@@ -14,6 +14,8 @@ from pathlib import Path
 
 import environ
 
+import os
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -36,6 +38,8 @@ environ.Env.read_env()
 
 # Application definition
 
+AUTH_USER_MODEL = "myauth.User"
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -43,17 +47,21 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'myauth',
+    'manga',
+    'chapter',
+    'rest_framework',
 ]
 
 
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME":env("DATABASE_NAME"),
-        "USER":env("DATABASE_USER"),
-        "PASSWORD":env("DATABASE_PASS"),
-        "HOST":env("DATABASE_HOST"),
-        "PORT":env("DATABASE_PORT")
+        'NAME': 'manga',                      
+        'USER': 'utkarsh',
+        'PASSWORD': 'u',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }   
 
@@ -132,3 +140,9 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+MEDIA_URL = '/media/'
+# Path where media is stored
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
