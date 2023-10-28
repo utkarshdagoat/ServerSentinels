@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 # Create your views here.
-from rest_framework import viewsets , permissions , authentication ,generics , status
+from rest_framework import viewsets , permissions , authentication ,generics , status , parsers
 
 from .permissions import IsUploaderOfManga
 
@@ -24,4 +24,5 @@ class ImageCreateandRetriveAPIView(viewsets.ModelViewSet):
     serializer_class  = ImageSerializer
     permission_classes = [permissions.IsAuthenticated , IsUploaderOfManga]
     authentication_classes = [CsrfExemptSessionAuthentication]
+    parser_classes = [parsers.MultiPartParser , parsers.JSONParser]
 

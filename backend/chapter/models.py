@@ -21,6 +21,11 @@ class Chapter(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
 
+    @property
+    def uid(self):
+        return self.manga.uid
+
+
 class MangaImage(models.Model):
     chapter = models.ForeignKey(to=Chapter , on_delete=models.CASCADE)
     relNumber = models.IntegerField(default=0)

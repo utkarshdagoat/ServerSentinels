@@ -4,7 +4,7 @@ from myauth.models import User
 
 import uuid
 import os
-
+import uuid
 # Create your models here.
 
 def get_filename(instance , filename):
@@ -23,5 +23,6 @@ class Manga(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     creator = models.CharField(max_length=200)
     liked_by = models.ManyToManyField(to=User , null=True , related_name="like_manga")
+    uid =models.UUIDField(default=uuid.uuid4)
 
 

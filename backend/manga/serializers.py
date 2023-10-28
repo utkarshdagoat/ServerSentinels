@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from .models import Manga
+import uuid
 
 from myauth.serializer import UserSerializer
 
@@ -11,7 +12,7 @@ class MangaSerializers(serializers.ModelSerializer):
     like_count = serializers.SerializerMethodField()
     class Meta:
         model = Manga
-        fields = ['uploader' , 'name' , 'description' , 'cover' , 'created_at' , 'creator' , 'latest_chapter' , 'like_count']
+        fields = ['uploader' , 'name' , 'description' , 'cover' , 'created_at' , 'creator' , 'latest_chapter' , 'like_count' , 'uid']
 
     def create(self , validated_data):
         user = self.context['request'].user
