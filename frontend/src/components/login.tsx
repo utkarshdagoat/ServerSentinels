@@ -46,7 +46,6 @@ export default function Login() {
     }
   }
 
-  const dispatch = useAppDispatch()
 
   const handleSignup = async () => {
       const formdata = new FormData()
