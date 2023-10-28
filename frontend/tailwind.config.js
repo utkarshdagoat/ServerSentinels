@@ -8,7 +8,13 @@ export default {
       "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      maxWidth:{
+        '3/5':'60%',
+        '2/5':'40%',
+        '1/6':'15%'
+      }
+    },
   },
   darkMode: "class",
   plugins: [nextui()]

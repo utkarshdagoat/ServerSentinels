@@ -21,10 +21,17 @@ import "../App.css";
 import { SearchIcon } from "./searchIcon";
 import { useState } from "react";
 import Login from "./login";
+import { useAppSelector } from "../hooks/redux";
+import { userApi } from "../services/user";
+import MangaCreate from "./manga-create";
 
 function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const [search, setSearch] = useState<string>("")
+
+  const userState = useAppSelector((state)=>state.user)
+
+  const [triggerLogout , data] = userApi.endpoints.logout.useLazyQuery();
 
   const menuItems = [
     "Profile",
@@ -82,10 +89,7 @@ function NavBar() {
           </Link>
         </NavbarItem>
         <NavbarItem>
-        <Login />
-         {/* <Button color="primary" onClick={}>
-        
-        </Button>  */}
+          <MangaCreate />
         </NavbarItem>
       </NavbarContent>
 
@@ -104,7 +108,7 @@ function NavBar() {
           size="sm"
           startContent={<SearchIcon size={18} />}
           type="search"
-        />
+        />{userState.loggendIn &&
         <Dropdown placement="bottom-end">
           <DropdownTrigger>
             <Avatar
@@ -114,25 +118,24 @@ function NavBar() {
               color="secondary"
               name="Jason Hughes"
               size="sm"
-              src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
+              src={ userState.profile_picture || "https://i.pravatar.cc/150?u=a042581f4e29026704d" }
             />
           </DropdownTrigger>
           <DropdownMenu aria-label="Profile Actions" variant="flat">
             <DropdownItem key="profile" className="h-14 gap-2">
               <p className="font-semibold">Signed in as</p>
-              <p className="font-semibold">zoey@example.com</p>
+              <p className="font-semibold">{userState.username}</p>
             </DropdownItem>
-            <DropdownItem key="settings">My Settings</DropdownItem>
+            <DropdownItem key="settings">My Favourites</DropdownItem>
             <DropdownItem key="team_settings">Team Settings</DropdownItem>
             <DropdownItem key="analytics">Analytics</DropdownItem>
             <DropdownItem key="system">System</DropdownItem>
             <DropdownItem key="configurations">Configurations</DropdownItem>
-            <DropdownItem key="help_and_feedback">Help & Feedback</DropdownItem>
-            <DropdownItem key="logout" color="danger">
+            <DropdownItem key="logout" color="danger" onClick={()=>triggerLogout()}>
               Log Out
             </DropdownItem>
           </DropdownMenu>
-        </Dropdown>
+        </Dropdown>}
       </NavbarContent>
 
       <NavbarMenu>
@@ -154,7 +157,9 @@ function NavBar() {
             </Link>
           </NavbarMenuItem>
         ))}
-      </NavbarMenu>
+      </NavbarMenu>{!userState.loggendIn  && 
+      <Login />
+      }
     </Navbar>
   );
 }
