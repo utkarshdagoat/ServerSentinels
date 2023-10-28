@@ -13,10 +13,14 @@ import Homepage from './pages/Homepage';
 function App() {
   return (
 <<<<<<< HEAD
+<<<<<<< HEAD
      <Homepage />
     
 =======
     <div className="bg-gradient-to-r from-[#99003c] via-[#2d2d66] to-[#2c7fe5]">
+=======
+    <div className="bg-gradient-to-r from-[#99003c] via-[#2d2d66] to-[#2c7fe5]" id="main">
+>>>>>>> fe3c331 (Login , manga creation , fully Functional)
     <Routes>
       <Route path="/" Component={Landing}/>
       <Route path="/login" Component={Login}/>

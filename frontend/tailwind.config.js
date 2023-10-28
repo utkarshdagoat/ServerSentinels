@@ -15,6 +15,11 @@ export default {
         'blob1':"url(./src/images/src/blob1.jpg)",
         'blob' : "url(./src/images/svgs/Blob.jpeg)",
       },
+      maxWidth:{
+        '3/5':'60%',
+        '2/5':'40%',
+        '1/6':'15%'
+      }
     },
   },
   darkMode: "class",
