@@ -12,8 +12,7 @@ export default {
   theme: {
     extend: {
       backgroundImage:{
-        'blob1':"url(./src/images/src/blob1.jpg)",
-        'blob' : "url(./src/images/svgs/Blob.jpeg)",
+        'blob' : "url(/home/camper/ServerSentinels/frontend/src/images/svgs/blob2.jpeg)",
       },
     },
   },
