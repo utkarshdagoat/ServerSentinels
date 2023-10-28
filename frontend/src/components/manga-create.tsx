@@ -23,7 +23,7 @@ export default function MangaCreate() {
     triggerMangaCreate(formdata)
     if(mangaCreateRes.data){
       console.log(mangaCreateRes.data)
-      onClose
+      onClose()
     }
 }
 
@@ -37,6 +37,7 @@ export default function MangaCreate() {
         size="5xl"
         placement="top-center"
         className="bg-gradient-to-r from-purple-950 via-black to-purple-950 5xl"
+        backdrop="blur"
       >
         <ModalContent>
           {(onClose) => (

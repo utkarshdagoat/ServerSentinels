@@ -7,7 +7,7 @@ import Footer from '../components/Footer';
 
 function Homepage() {
   return (
-     <div className="bg-gradient-to-r from-[#99003c] via-[#2d2d66] to-[#2c7fe5]">
+     <div className="bg-gradient-to-r  from-purple-950 to-black">
       <Landing />
       <Carousel />                   
       <Latestupdates />
