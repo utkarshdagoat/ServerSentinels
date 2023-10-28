@@ -15,7 +15,20 @@ export interface manga {
     cover:string,
     created_at:string,
     creator:string,
-    latest_chapter:number
+    latest_chapter:number,
+    uid:string
+}
+
+interface chapterCreate{
+    number:number,
+    uid:string,
+}
+interface chapterCreateRes{
+    number:number,
+    manga:number,
+    uid:string,
+    id:number,
+    created:string
 }
 
 
@@ -42,6 +55,24 @@ export const mangaApi = createApi({
         }),
         getMyManga : builder.query<manga[] , void>({
             query:()=>'manga/manga/mine'
+        }),
+        createChapter:builder.query<chapterCreateRes,chapterCreate>({
+            query:(payload)=>({
+                url:'chapter/chapter/',
+                method:'POST',
+                body:payload,
+                headers:{
+                    "content-type":"application/json"
+                }
+            })
+        }),
+        chapterImageUpload: builder.query<any , FormData>({
+            query:(payload)=>({
+                url:'chapter/images/',
+                method:'POST',
+                body:payload,
+                headers:undefined
+            })
         })
     })
 })

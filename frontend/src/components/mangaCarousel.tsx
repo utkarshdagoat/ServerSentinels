@@ -116,8 +116,8 @@ type direction = "prev" | "next"
             >
             <div className="flex overflow-x scroll-smooth scrollbar-hide pb-10" ref={scrollablDivRef}>
                 <div className="flex space-x-20   " >
-                {data?.map((item, index) => (
-                    <Card isFooterBlurred className={`col-span-12 sm:col-span-5 bf`} isPressable key={index}>
+                {data?.map((item) => (
+                    <Card isFooterBlurred className={`col-span-12 sm:col-span-5 bf`} isPressable key={item.uid}>
                     <Image
                       removeWrapper
                       alt="Card example background"
@@ -133,7 +133,7 @@ type direction = "prev" | "next"
                       </Button>}{
                         canCreate &&
                         <Button className="" color="secondary" radius="full" size="sm" >
-                        <ChapterCreate />
+                        <ChapterCreate uid={item.uid} />
                       </Button>
                       }
                     </CardFooter>
