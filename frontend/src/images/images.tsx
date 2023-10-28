@@ -10,7 +10,8 @@ const IMAGES = {
     soul: new URL("./imgs/souleater.jpg",import.meta.url).href,
     jump: new URL("./imgs/jump.jpg",import.meta.url).href,
     blob:new URL("./svgs/Blob.jpeg",import.meta.url).href,
-    logo: new URL("./svgs/icons8-satoru-gojo.svg", import.meta.url).href
+    logo: new URL("./svgs/icons8-satoru-gojo.svg", import.meta.url).href,
+    bg:new URL("./svgs/upload-image.svg", import.meta.url).href
 }
 
 export default IMAGES

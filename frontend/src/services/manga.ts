@@ -8,13 +8,14 @@ interface mangaCreate {
     creator:string
 }
 
-interface manga {
+export interface manga {
     user:userAuthState,
     name:string,
     description:string,
     cover:string,
     created_at:string,
-    creator:string
+    creator:string,
+    latest_chapter:number
 }
 
 
@@ -38,9 +39,12 @@ export const mangaApi = createApi({
                 url:'manga/',
                 method:'GET'
             })
+        }),
+        getMyManga : builder.query<manga[] , void>({
+            query:()=>'manga/manga/mine'
         })
     })
 })
 
 
-export const {useCreateMangaQuery , useGetMangasQuery} = mangaApi
+export const {useCreateMangaQuery , useGetMangasQuery , useGetMyMangaQuery} = mangaApi

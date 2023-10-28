@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 # Create your views here.
 
-from rest_framework import viewsets , permissions , authentication , parsers 
+from rest_framework import viewsets , permissions , authentication , parsers  , generics
 from rest_framework.decorators import action
 from django.core.serializers import serialize
 
@@ -28,8 +28,22 @@ class MangaViewSet(viewsets.ModelViewSet):
     def get_chapter(self,request,pk):
         manga = self.get_object()
         chapters = Chapter.objects.filter(manga=manga)
-        serialized_queryset = serialize('json', chapters)
         return JsonResponse(serialized_queryset , safe=False)
-            
+
+    @action(methods=['GET'] , detail=True)
+    def like(self , request , pk):
+        manga = self.get_object()
+        if(manga.liked_by.filter(id=request.user.id).exists()):
+            return Response('Already Liked')
+        manga.liked_by.add(request.user)
+        return Response('Liked')
+
+   
+class MyMangaAPIView(generics.ListAPIView):
+    serializer_class = MangaSerializers
+    
+    def get_queryset(self):
+        queryset = Manga.objects.filter(uploader=self.request.user)
+        return queryset
 
 

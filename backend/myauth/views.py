@@ -12,6 +12,8 @@ from .models import User
 from backend.authentication import CsrfExemptSessionAuthentication
 
 
+from django.shortcuts import redirect
+
 
 class UserViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.AllowAny]
@@ -20,6 +22,19 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     parser_classes  = [parsers.MultiPartParser , parsers.JSONParser]
 
+
+
+class isLoggedIn(views.APIView):
+    authentication_classes=[CsrfExemptSessionAuthentication]
+    def get(self,request,*args,**kwargs):
+        content = {"LoggedIn" : False}
+
+        if request.user.is_authenticated:
+            print('requesed')
+            serializer = UserSerializer(instance=request.user , data={})
+            serializer.is_valid(raise_exception=True)
+            content = {"LoggedIn":True , 'user':serializer.data }
+        return Response(content)
 
 class UserLogin(generics.GenericAPIView): 
     serializer_class= LoginSerializer# User Login
@@ -30,8 +45,7 @@ class UserLogin(generics.GenericAPIView):
             if(seraializer.is_valid()):
                 user = User.objects.get(username=seraializer.validated_data['username'])
                 login(request=request , user=user)
-                
-                return Response("hello")
+                return Response('hello')
             return Response(seraializer.errors)
         except User.DoesNotExist: # If User Record does not exist,
             return Response("Invalid Request" , status=status.HTTP_400_BAD_REQUEST)
