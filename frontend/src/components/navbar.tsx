@@ -23,7 +23,8 @@ import { useState } from "react";
 import Login from "./login";
 
 function NavBar() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const [search, setSearch] = useState<string>("")
 
   const menuItems = [
     "Profile",
@@ -97,6 +98,8 @@ function NavBar() {
             inputWrapper:
               "h-full font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20",
           }}
+          value={search}
+          onChange={(e)=>setSearch(e.target.value)}
           placeholder="Type to search..."
           size="sm"
           startContent={<SearchIcon size={18} />}
