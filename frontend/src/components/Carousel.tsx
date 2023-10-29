@@ -27,7 +27,7 @@ export default function Carousel() {
   return (
     <div>
       {error ? (
-        <>Some Error Occurred</>
+        <div className="text-5xl">Please  Login</div>
       ) : isLoading ? (
         <Spinner></Spinner>
       ) : data && currentObject ? (

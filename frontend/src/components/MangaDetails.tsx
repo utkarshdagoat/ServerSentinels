@@ -75,7 +75,7 @@ export default function MangaDetails() {
             ) : chapters.isLoading ? (
                 <Spinner />
             ) : (chapters.data && 
-                <div className=" bg-[url(src/images/svgs/detail.svg)] bg-cover bg-no-repeat flex items-center justify-center m-20 sm:flex-col sm:flex sm:justify-center sm:w-full tablet:flex-col sm:overflow-hidden sm:m-0">
+                <div className=" bg-[url(src/images/svgs/detail.svg)] bg-cover bg-no-repeat flex items-center justify-center m-20">
 
                     {/* Left Div  */}
                     <div className="flex flex-col mt-4 mb-8">
@@ -85,7 +85,7 @@ export default function MangaDetails() {
                             className=" scale-y-90"
 
                         />
-                        <div className="flex flex-col sm:flex sm:flex-col sm:item-center">
+                        <div className="flex flex-col ">
                             <Button color="secondary" variant="shadow" >
                                 <Heart /><text className="font-semibold text-lg" >Like</text>
                             </Button>
@@ -115,7 +115,7 @@ export default function MangaDetails() {
                                 </CardBody>
                             </Card>
                         </div>
-                        <Card className="sm:hidden">
+                        <Card className="">
                             <CardBody className="flow-root gap-2">
                                 <div className="column">
                                     <div className="mb-2">

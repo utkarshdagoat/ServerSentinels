@@ -65,7 +65,7 @@ type direction = "prev" | "next"
   
 
   return (
-    <div className="carousel mt-6 mb-1 mx-auto flex-col pl-3">
+    <div className="carousel mt-6 mb-1 mx-auto flex-col ml-10">
         <div className="flex">
         <h2 className="text-3xl leading-8 font-semibold mb-6 mt-4 text-white inline-block float-left flex items-center">
             <>{Title}</>{emoji}
