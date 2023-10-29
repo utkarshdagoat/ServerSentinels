@@ -1,86 +1,152 @@
-import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Checkbox, Input, Link, Textarea} from "@nextui-org/react";
-import { mangaApi } from "../services/manga";
-import { useEffect, useState } from "react";
-
-export default function MangaCreate() {
-  const {isOpen, onOpen, onClose} = useDisclosure();
-
-  const [triggerMangaCreate , mangaCreateRes] = mangaApi.endpoints.createManga.useLazyQuery()
-  const [name , setName] = useState<string>("")
-  const [description , setDescription] = useState<string>("")
-  const [author , setAuthor] = useState<string>("")
-
-  const [cover, setCover] = useState<File | null>()
-
-  const handleCreate = async () => {
-    const formdata = new FormData()
-    if(cover){
-      formdata.append("cover" , cover)
-    }
-    formdata.append("name" , name)
-    formdata.append("description" ,description)
-    formdata.append("creator" ,author)
-    triggerMangaCreate(formdata)
-    
-} 
-useEffect(()=>{
-  if(mangaCreateRes.data){
-    onClose()
-    window.location.reload()
-  }
-} , [mangaCreateRes])
+// import logo from './logo.svg';
+import {
+  Navbar,
+  NavbarBrand,
+  NavbarMenuToggle,
+  NavbarMenuItem,
+  NavbarMenu,
+  NavbarContent,
+  NavbarItem,
+  Link,
+  Button,
+  Input,
+  DropdownItem,
+  DropdownTrigger,
+  Dropdown,
+  DropdownMenu,
+  Avatar,
+  Image
+} from "@nextui-org/react";
+import "../index.css";
+import "../App.css";
+import { SearchIcon } from "./searchIcon";
+import { useState } from "react";
+import Login from "./login";
+import { useAppSelector } from "../hooks/redux";
+import { userApi } from "../services/user";
+import MangaCreate from "./manga-create";
+import IMAGES from "../images/images";
+import { useNavigate } from "react-router-dom";
 
 
+
+function NavBar() {
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const [search, setSearch] = useState<string>("")
+
+  const userState = useAppSelector((state)=>state.user)
+
+  const [triggerLogout , data] = userApi.endpoints.logout.useLazyQuery();
+  const navigate = useNavigate()
+  const menuItems = [
+    "Profile",
+    "Dashboard",
+    "Activity",
+    "Analytics",
+    "System",
+    "Deployments",
+    "My Settings",
+    "Team Settings",
+    "Help & Feedback",
+    "Log Out",
+  ];
   return (
-    <>
-      <Button onPress={onOpen} variant="ghost" color="secondary">Create A Manga</Button>
-      <Modal 
-        isOpen={isOpen} 
-        onClose={onClose}
-        size="5xl"
-        placement="top-center"
-        className="bg-gradient-to-r from-purple-950 via-black to-purple-950 5xl hover:scale-110"
-        backdrop="blur"
-      >
-        <ModalContent>
-          {(onClose) => (
-            <>
-              <ModalHeader className="flex flex-col gap-1 text-2xl">Manga Creation Form</ModalHeader>
-              <ModalBody>
-                <Input 
-                type="text" 
-                label="Name" 
-                variant="bordered" 
-                color="default" 
-                className="text-white"
-                onChange={(e)=>setName(e.target.value)} 
-                 />
-                <Textarea variant="bordered" color="default" placeholder="Describe the manga you are uploading" onChange={(e)=>setDescription(e.target.value)}/>
-                <Input type="text" label="Author Name" variant="bordered" color="default"
-                    onChange={(e)=>setAuthor(e.target.value)}
-                    required
+    <Navbar
+      isBordered
+      isMenuOpen={isMenuOpen}
+      onMenuOpenChange={setIsMenuOpen}
+      className="w-full"
+    >
+      <NavbarContent className="sm:hidden" justify="start">
+        <NavbarMenuToggle
+          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+        />
+      </NavbarContent>
+      <NavbarItem>
+      <Image
+      className="hover:cursor-pointer"
+          alt="nextui logo"
+          height={48}
+          radius="sm"
+          src={IMAGES.logo}
+          width={48}
+          onClick={()=>navigate('/')}
+        />
+      </NavbarItem>
+      <NavbarContent className="hidden sm:flex gap-4" justify="center">
+        <NavbarBrand>
+          <p className="font-bold text-xl text-inherit hover:cursor-pointer" onClick={()=>navigate('/')}>NManga</p>
+        </NavbarBrand>
+        
+        <NavbarItem>
+          <MangaCreate />
+        </NavbarItem>
+      </NavbarContent>
 
-                />
-                <input id="cover-input" type="file" className="opacity-0 max-w-0 h-0"
-                    required
-                    onChange={(e)=>setCover(e.target.files?.[0])}
-                />
-                <label htmlFor="cover-input" className="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 shadow-lg shadow-purple-500/50 dark:shadow-lg dark:shadow-purple-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 max-w-[200px]">
-                  { !cover?.name  ? (
-                 <> Upload Cover Image</>
-                  ):(
-                   <> {cover?.name}</>
-                  )
-                }</label>
-                <Button variant="ghost" color="default" className="mt-10 max-w-1/6 text-m" onClick={handleCreate}>Create</Button>
-              </ModalBody>
-              <ModalFooter>
-                
-              </ModalFooter>
-            </>
-          )}
-        </ModalContent>
-      </Modal>
-    </>
+      <NavbarContent as="div" className="items-center" justify="end">
+        <Input
+          classNames={{
+            base: "max-w-full sm:max-w-[10rem] h-10",
+            mainWrapper: "h-full",
+            input: "text-small",
+            inputWrapper:
+              "h-full font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20",
+          }}
+          value={search}
+          onChange={(e)=>setSearch(e.target.value)}
+          placeholder="Type to search..."
+          size="sm"
+          startContent={<SearchIcon size={18} />}
+          type="search"
+        />{userState.LoggedIn &&
+        <Dropdown placement="bottom-end">
+          <DropdownTrigger>
+            <Avatar
+              isBordered
+              as="button"
+              className="transition-transform"
+              color="secondary"
+              name="Jason Hughes"
+              size="sm"
+              src={ 'http://localhost:8000/'+ userState.user.profile_picture || "https://i.pravatar.cc/150?u=a042581f4e29026704d" }
+            />
+          </DropdownTrigger>
+          <DropdownMenu aria-label="Profile Actions" variant="flat">
+            <DropdownItem key="profile" className="h-14 gap-2">
+              <p className="font-semibold">Signed in as</p>
+              <p className="font-semibold">{userState.user.username}</p>
+            </DropdownItem>
+            <DropdownItem key="logout" color="danger" onClick={()=>{triggerLogout() ; window.location.reload()}}>
+              Log Out
+            </DropdownItem>
+          </DropdownMenu>
+        </Dropdown>}
+      </NavbarContent>
+
+      <NavbarMenu>
+        {menuItems.map((item, index) => (
+          <NavbarMenuItem key={`${item}-${index}`}>
+            <Link
+              className="w-full"
+              color={
+                index === 2
+                  ? "warning"
+                  : index === menuItems.length - 1
+                  ? "danger"
+                  : "foreground"
+              }
+              href="#"
+              size="lg"
+            >
+              {item}
+            </Link>
+          </NavbarMenuItem>
+        ))}
+      </NavbarMenu>{!userState.LoggedIn  && 
+      <Login />
+      }
+    </Navbar>
   );
 }
+
+export default NavBar;

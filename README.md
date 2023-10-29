@@ -24,7 +24,11 @@ These technologies collectively power the "Nippon Manga" application, enabling e
 `cd backend && python -m venv venv && source venv/bin/activate && pip install -r requirements.txt && python manage.py runserver `
 
 ### Running the detection model 
-Follow the instructions  <a href="https://github.com/TheHamkerCat/NSFW_Detection_API">Here </a>
+Follow the instructions  <a href="https://github.com/TheHamkerCat/NSFW_Detection_API">Here </a>4
+
+
+## Images ui
+
 
 
 ## Application Flow 

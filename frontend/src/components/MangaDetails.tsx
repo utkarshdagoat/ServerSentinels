@@ -75,7 +75,7 @@ export default function MangaDetails() {
             ) : chapters.isLoading ? (
                 <Spinner />
             ) : (chapters.data && 
-                <div className=" bg-[url(src/images/svgs/detail.svg)] bg-cover bg-no-repeat flex items-center justify-center m-20">
+                <div className=" bg-[url(src/images/svgs/detail.svg)] bg-cover bg-no-repeat flex items-center justify-center m-20 sm:flex-col sm:flex sm:justify-center sm:w-full tablet:flex-col sm:overflow-hidden sm:m-0">
 
                     {/* Left Div  */}
                     <div className="flex flex-col mt-4 mb-8">
@@ -85,7 +85,7 @@ export default function MangaDetails() {
                             className=" scale-y-90"
 
                         />
-                        <div className="flex flex-col">
+                        <div className="flex flex-col sm:flex sm:flex-col sm:item-center">
                             <Button color="secondary" variant="shadow" >
                                 <Heart /><text className="font-semibold text-lg" >Like</text>
                             </Button>
@@ -115,7 +115,7 @@ export default function MangaDetails() {
                                 </CardBody>
                             </Card>
                         </div>
-                        <Card>
+                        <Card className="sm:hidden">
                             <CardBody className="flow-root gap-2">
                                 <div className="column">
                                     <div className="mb-2">
@@ -141,7 +141,7 @@ export default function MangaDetails() {
                         </Card>
                     </div>
 
-                    <div className="flex flex-col ml-10">
+                    <div className="flex flex-col ml-10 max-w-full tablet:ml-0">
                         <div className="flex flex-col">
                             <Card className="max-w-[700px]">
                                 <CardHeader className="flex gap-3">
@@ -166,7 +166,7 @@ export default function MangaDetails() {
                                     </CardHeader>
                                     <Divider />
                                     <CardBody>
-                                        <div className="flex flex-row gap-4">
+                                        <div className="flex flex-row gap-4 tablet:flex-col">
                                             <Card className="min-w-[320px] text-center bg-gradient-to-r from-purple-950  to-black" isPressable > {/* onPress */}
                                                 <CardBody className="text-center">
                                                     <p className="text-base">First Chapter</p>

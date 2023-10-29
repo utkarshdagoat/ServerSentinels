@@ -31,7 +31,7 @@ export default function Carousel() {
       ) : isLoading ? (
         <Spinner></Spinner>
       ) : data && currentObject ? (
-        <div className="flex flex-col bg-blob bg-cover bg-center bg-no-repeat max-w-4/5 mx-auto">
+        <div className="flex flex-col bg-blob bg-cover bg-center bg-no-repeat max-w-4/5 mx-auto sm:hidden">
           <div className="flex justify-between w-full h-0">
             <Button
               color="primary"
@@ -71,7 +71,7 @@ export default function Carousel() {
               src={currentObject.cover}
               alt="NextUI Album Cover"
               height={300}
-              className="rounded-lg overflow-hidden relative pb-16 w-full"
+              className="rounded-lg overflow-hidden relative pb-16 w-full large:hidden"
             />
           </div>
         </div>

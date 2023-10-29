@@ -39,15 +39,6 @@ function NavBar() {
   const [triggerLogout , data] = userApi.endpoints.logout.useLazyQuery();
   const navigate = useNavigate()
   const menuItems = [
-    "Profile",
-    "Dashboard",
-    "Activity",
-    "Analytics",
-    "System",
-    "Deployments",
-    "My Settings",
-    "Team Settings",
-    "Help & Feedback",
     "Log Out",
   ];
   return (

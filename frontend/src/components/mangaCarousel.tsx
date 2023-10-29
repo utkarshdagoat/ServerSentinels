@@ -75,7 +75,7 @@ type direction = "prev" | "next"
             <div className="flex justify-between absolute top left w-full h-full">
                 <button
                     onClick={movePrev}
-                    className="hover:bg-blue-900/75 text-white w-10 h-full text-center opacity-75 hover:opacity-100 disabled:opacity-25 disabled:cursor-not-allowed z-10 p-0 m-0 transition-all ease-in-out duration-300"
+                    className=" text-white w-10 h-8 mb -8 text-center   disabled:opacity-25 disabled:cursor-not-allowed z-10 p-0 m-0 transition-all ease-in-out duration-300"
                     /* disabled={isDisabled('prev')} */
                 >
                     <svg
@@ -96,7 +96,7 @@ type direction = "prev" | "next"
                 </button>
                 <button
                     onClick={moveNext}
-                    className="hover:bg-blue-900/75 text-white w-10 h-full text-center opacity-75 hover:opacity-100 disabled:opacity-25 disabled:cursor-not-allowed z-10 p-0 m-0 transition-all ease-in-out duration-300"
+                    className="text-white w-10 h-8 mb -8 text-center   disabled:opacity-25 disabled:cursor-not-allowed z-10 p-0 m-0 transition-all ease-in-out duration-300"
                     /* disabled={isDisabled('next')} */
                 >
                     <svg
@@ -121,9 +121,9 @@ type direction = "prev" | "next"
                 className="carousel-container relative flex gap-1 overflow-hidden scroll-smooth snap-x snap-mandatory touch-pan-x z-0"
             >
             <div className="flex overflow-x scroll-smooth scrollbar-hide pb-10" ref={scrollablDivRef}>
-                <div className="flex space-x-20   " >
+                <div className="flex space-x-20 tablet:space-x-4   " >
                 {data?.map((item) => (
-                    <Card isFooterBlurred className={`col-span-12 sm:col-span-5 bf max-w-200`} isPressable key={item.uid} onPress={()=>onChapterPress(item.uid , item.latest_chapter)}>
+                    <Card isFooterBlurred className={`col-span-12 sm:col-span-5 bf max-w-200 tablet:scale-75`} isPressable key={item.uid} onPress={()=>onChapterPress(item.uid , item.latest_chapter)}>
                     <Image
                       removeWrapper
                       alt="Card example background"
