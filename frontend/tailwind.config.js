@@ -20,11 +20,6 @@ export default {
         '1/6':'15%',
         '7/10':'70%'
       },
-      screens:{
-        "sm":{max:"480px"},
-        "tablet":{max:"640px"},
-        "large":{max:"960px"}
-      }
     },
   },
   darkMode: "class",

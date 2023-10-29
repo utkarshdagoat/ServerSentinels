@@ -1,6 +1,7 @@
 import React from "react";
 import {Card, CardHeader, CardBody, CardFooter, Divider, Link, Image} from "@nextui-org/react";
 import IMAGES from "../images/images";
+import Login from "./login";
 export default function Footer() {
   return (
     <div className="w-full flex items-center justify-center ">
@@ -29,6 +30,7 @@ export default function Footer() {
         >
           Visit source code on GitHub.
         </Link>
+        <Login />
       </CardFooter>
     </Card>
     </div>
