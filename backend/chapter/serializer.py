@@ -37,9 +37,8 @@ class ImageSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         try:
             validated_data['relNumber'] = int(validated_data['relNumber'])
-            print(validated_data['relNumber'])
             validated_data['chapter'] = Chapter.objects.get(id=int(validated_data['chapter']))
-            instance = MangaImage(**validated_data)
+            instance = MangaImage.objects.create(**validated_data)
             return instance
         except TypeError:
              raise serializers.ValidationError(detail="Invalid relative number")

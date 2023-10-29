@@ -41,6 +41,10 @@ export default function Login() {
       },
       credentials:'include'
     })
+    if(res.ok){
+      window.location.reload()
+      onClose()
+    }
   }
 
 
@@ -52,8 +56,9 @@ export default function Login() {
       formdata.append("username" , username)
       formdata.append("password" , password)
       trigger(formdata)
-      if(res.data){
+      if(res.data && res.data){
         onClose()
+        window.location.reload()
       }
   }
 

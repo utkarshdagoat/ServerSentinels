@@ -15,6 +15,7 @@ import {
   Dropdown,
   DropdownMenu,
   Avatar,
+  Image
 } from "@nextui-org/react";
 import "../index.css";
 import "../App.css";
@@ -24,6 +25,10 @@ import Login from "./login";
 import { useAppSelector } from "../hooks/redux";
 import { userApi } from "../services/user";
 import MangaCreate from "./manga-create";
+import IMAGES from "../images/images";
+import { useNavigate } from "react-router-dom";
+
+
 
 function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
@@ -32,7 +37,7 @@ function NavBar() {
   const userState = useAppSelector((state)=>state.user)
 
   const [triggerLogout , data] = userApi.endpoints.logout.useLazyQuery();
-
+  const navigate = useNavigate()
   const menuItems = [
     "Profile",
     "Dashboard",
@@ -57,37 +62,22 @@ function NavBar() {
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
         />
       </NavbarContent>
-
-      <NavbarContent className="sm:hidden pr-3" justify="center">
-        <NavbarBrand>
-          <p className="font-bold text-inherit">ACME</p>
-        </NavbarBrand>
-      </NavbarContent>
-
+      <NavbarItem>
+      <Image
+      className="hover:cursor-pointer"
+          alt="nextui logo"
+          height={48}
+          radius="sm"
+          src={IMAGES.logo}
+          width={48}
+          onClick={()=>navigate('/')}
+        />
+      </NavbarItem>
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <NavbarBrand>
-          <p className="font-bold text-inherit">ACME</p>
+          <p className="font-bold text-xl text-inherit hover:cursor-pointer" onClick={()=>navigate('/')}>NManga</p>
         </NavbarBrand>
-        <NavbarItem>
-          <Link
-            color="foreground"
-            id="yoyo"
-            href="#"
-            className="hover:bg-gradient-to-r from-[#99003c] via-[#2d2d66] to-[#2c7fe5]"
-          >
-            Features
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link href="#" aria-current="page">
-            Customers
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link color="foreground" href="#">
-            Integrations
-          </Link>
-        </NavbarItem>
+        
         <NavbarItem>
           <MangaCreate />
         </NavbarItem>
@@ -126,12 +116,7 @@ function NavBar() {
               <p className="font-semibold">Signed in as</p>
               <p className="font-semibold">{userState.user.username}</p>
             </DropdownItem>
-            <DropdownItem key="settings">My Favourites</DropdownItem>
-            <DropdownItem key="team_settings">Team Settings</DropdownItem>
-            <DropdownItem key="analytics">Analytics</DropdownItem>
-            <DropdownItem key="system">System</DropdownItem>
-            <DropdownItem key="configurations">Configurations</DropdownItem>
-            <DropdownItem key="logout" color="danger" onClick={()=>triggerLogout()}>
+            <DropdownItem key="logout" color="danger" onClick={()=>{triggerLogout() ; window.location.reload()}}>
               Log Out
             </DropdownItem>
           </DropdownMenu>

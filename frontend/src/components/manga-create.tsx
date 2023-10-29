@@ -1,6 +1,6 @@
 import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Checkbox, Input, Link, Textarea} from "@nextui-org/react";
 import { mangaApi } from "../services/manga";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function MangaCreate() {
   const {isOpen, onOpen, onClose} = useDisclosure();
@@ -21,11 +21,14 @@ export default function MangaCreate() {
     formdata.append("description" ,description)
     formdata.append("creator" ,author)
     triggerMangaCreate(formdata)
-    if(mangaCreateRes.data){
-      console.log(mangaCreateRes.data)
-      onClose()
-    }
-}
+    
+} 
+useEffect(()=>{
+  if(mangaCreateRes.data){
+    onClose()
+    window.location.reload()
+  }
+} , [mangaCreateRes])
 
 
   return (
@@ -36,7 +39,7 @@ export default function MangaCreate() {
         onClose={onClose}
         size="5xl"
         placement="top-center"
-        className="bg-gradient-to-r from-purple-950 via-black to-purple-950 5xl"
+        className="bg-gradient-to-r from-purple-950 via-black to-purple-950 5xl hover:scale-110"
         backdrop="blur"
       >
         <ModalContent>
@@ -62,7 +65,13 @@ export default function MangaCreate() {
                     required
                     onChange={(e)=>setCover(e.target.files?.[0])}
                 />
-                <label htmlFor="cover-input" className="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 shadow-lg shadow-purple-500/50 dark:shadow-lg dark:shadow-purple-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 max-w-[200px]">Upload Cover Image</label>
+                <label htmlFor="cover-input" className="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 shadow-lg shadow-purple-500/50 dark:shadow-lg dark:shadow-purple-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 max-w-[200px]">
+                  { !cover?.name  ? (
+                 <> Upload Cover Image</>
+                  ):(
+                   <> {cover?.name}</>
+                  )
+                }</label>
                 <Button variant="ghost" color="default" className="mt-10 max-w-1/6 text-m" onClick={handleCreate}>Create</Button>
               </ModalBody>
               <ModalFooter>

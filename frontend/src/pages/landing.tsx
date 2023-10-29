@@ -5,7 +5,6 @@ import NavBar from "../components/navbar";
 function Landing() {
   return (
     <>
-      <NavBar />
     </>
   );
 }

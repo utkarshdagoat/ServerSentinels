@@ -31,7 +31,7 @@ export default function Carousel() {
       ) : isLoading ? (
         <Spinner></Spinner>
       ) : data && currentObject ? (
-        <div className="flex flex-col bg-blob bg-cover bg-center bg-no-repeat">
+        <div className="flex flex-col bg-blob bg-cover bg-center bg-no-repeat max-w-4/5 mx-auto">
           <div className="flex justify-between w-full h-0">
             <Button
               color="primary"
@@ -58,7 +58,7 @@ export default function Carousel() {
                 {currentObject.name}
               </text>
               <text className="text-base font-bold uppercase">Summary</text>
-              <text className="overflow-hidden text-ellipsis bg-black w-96 pb-6 text-xs">
+              <text className="overflow-hidden text-ellipsis w-96 pb-6 text-xs">
                 {currentObject.description}
               </text>
               <Button color="secondary" variant="shadow" className="w-1/4">

@@ -5,6 +5,9 @@ import uuid
 
 from myauth.serializer import UserSerializer
 
+from chapter.models import Chapter
+
+
 
 class MangaSerializers(serializers.ModelSerializer):
     uploader = UserSerializer(read_only=True)
@@ -15,6 +18,7 @@ class MangaSerializers(serializers.ModelSerializer):
         fields = ['uploader' , 'name' , 'description' , 'cover' , 'created_at' , 'creator' , 'latest_chapter' , 'like_count' , 'uid']
 
     def create(self , validated_data):
+        print(validated_data['cover'])
         user = self.context['request'].user
         validated_data['uploader'] = user
         instance = Manga.objects.create(**validated_data)
@@ -23,6 +27,7 @@ class MangaSerializers(serializers.ModelSerializer):
     def get_latest_chapter(self,obj):
         try:
             latest_chapter = Chapter.objects.filter(manga=obj.id).order_by('-created_at').first()
+            print(latest_chapter)
             return latest_chapter.number
         except:
             return 0

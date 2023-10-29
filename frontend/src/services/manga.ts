@@ -31,6 +31,12 @@ interface chapterCreateRes{
     created:string
 }
 
+interface imagesRes {
+    image:string,
+    chapter:string,
+    relNumber:string
+}
+
 
 export const mangaApi = createApi({
     reducerPath:"mangaApi",
@@ -73,9 +79,25 @@ export const mangaApi = createApi({
                 body:payload,
                 headers:undefined
             })
-        })
+        }),
+        getMangaDetail : builder.query<manga , string>({
+            query:(uid)=>`manga/${uid}`
+        }),
+        getChapterImages: builder.query<imagesRes[] , string[]>({
+            query:(manga) => `chapter/chapter_images/?mangaid=${manga[0]}&cn=${manga[1]}`,
+            transformResponse:(response:imagesRes[])=>{
+                const data = response.sort((a, b) => parseInt(a.relNumber) - parseInt(b.relNumber))
+                return data
+            }
+        }),
+        getChapters:builder.query<chapterCreateRes[] , string>({
+            query:(uid)=>`manga/manga/${uid}/chapters/`
+        }),
+        likeManga : builder.query<manga , string>({
+            query:(uid)=>`manga/${uid}/like`
+        }),
     })
 })
 
 
-export const {useCreateMangaQuery , useGetMangasQuery , useGetMyMangaQuery} = mangaApi
+export const {useCreateMangaQuery , useGetMangasQuery , useGetMyMangaQuery , useGetMangaDetailQuery , useGetChapterImagesQuery} = mangaApi

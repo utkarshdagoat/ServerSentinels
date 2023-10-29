@@ -5,6 +5,7 @@ import IMAGES from "../images/images";
 import { useGetMangasQuery } from "../services/manga";
 import { manga } from "../services/manga";
 import ChapterCreate from "./chapter-upload";
+import { useNavigate } from "react-router-dom";
 
 export default function MangaCorousel({data , canCreate , Title , emoji}:{data:manga[] , canCreate:boolean , Title:string , emoji:string}) {
 type direction = "prev" | "next"
@@ -13,6 +14,11 @@ type direction = "prev" | "next"
     const maxScrollWidth = useRef(0);
     const [currentIndex, setCurrentIndex] = useState(0);
     const carousel = useRef<HTMLDivElement>(null);
+
+    const navigate = useNavigate()
+    const onChapterPress = (id:string , cn:number)=>{
+      navigate(`/manga/${id}/chapter/${cn}`)
+    }
   
     const movePrev = () => {
         if(scrollablDivRef.current){
@@ -117,11 +123,11 @@ type direction = "prev" | "next"
             <div className="flex overflow-x scroll-smooth scrollbar-hide pb-10" ref={scrollablDivRef}>
                 <div className="flex space-x-20   " >
                 {data?.map((item) => (
-                    <Card isFooterBlurred className={`col-span-12 sm:col-span-5 bf`} isPressable key={item.uid}>
+                    <Card isFooterBlurred className={`col-span-12 sm:col-span-5 bf max-w-200`} isPressable key={item.uid} onPress={()=>onChapterPress(item.uid , item.latest_chapter)}>
                     <Image
                       removeWrapper
                       alt="Card example background"
-                      className="z-0  object-fill min-h-[400px] "
+                      className="z-0  max-w-[400px] min-w-[250px] max-h-[500px] h-full w-full object-sterch min-h-[400px] "
                       src={item.cover}
                     />
                     <CardFooter className="absolute bg-white/30 bottom-0 border-t-1 border-zinc-100/50 z-10 justify-between">

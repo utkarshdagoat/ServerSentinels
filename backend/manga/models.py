@@ -24,5 +24,10 @@ class Manga(models.Model):
     creator = models.CharField(max_length=200)
     liked_by = models.ManyToManyField(to=User , null=True , related_name="like_manga")
     uid =models.UUIDField(default=uuid.uuid4)
+    is_nsfw = models.BooleanField(default=False)
+
+    @property
+    def image_path(self):
+        return os.path.basename(self.cover.name)
 
 
